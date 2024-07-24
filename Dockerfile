@@ -1,19 +1,14 @@
-# Stage 1: Build the application
-FROM openjdk:21-jdk AS build
-RUN apt-get update && apt-get install -y maven
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+# Use a base image with OpenJDK 21
+FROM openjdk:21-jdk-slim
 
-# Debug step to verify the contents of the /app/target directory
-RUN ls -la /app/target
-
-# Stage 2: Create the final image
-FROM openjdk:21-jdk
+# Set the working directory in the container
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-# Debug step to verify the JAR file is copied correctly
-RUN ls -la /app
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+
+# Copy the Spring Boot jar file to the container
+COPY target/back-0.0.1-SNAPSHOT.jar /app/back.jar
+
+# Expose the port on which the Spring Boot application will run
+EXPOSE 10000
+
+# Set the command to run the Spring Boot application
+CMD ["java", "-jar", "/app/back.jar"]
