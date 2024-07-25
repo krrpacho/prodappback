@@ -1,13 +1,20 @@
-# Use the official Maven image to create a build artifact.
-# As a build step
-FROM maven:3.8.5-openjdk-22-slim AS build
-WORKDIR /home/app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package
-
-# Use the official OpenJDK image to run the application
+# Use an official OpenJDK runtime as a parent image
 FROM openjdk:22-jdk-slim
-COPY --from=build /home/app/target/back-0.0.1-SNAPSHOT.jar /usr/local/lib/back.jar
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Add metadata to the image to describe which port the container is listening on at runtime.
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/usr/local/lib/back.jar"]
+
+# The application's jar file
+ARG JAR_FILE=target/back-0.0.1-SNAPSHOT.jar
+
+# Add the application's jar to the container
+ADD ${JAR_FILE} app.jar
+
+# Run the jar file
+ENTRYPOINT ["java", "-jar", "app.jar"]
