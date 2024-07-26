@@ -1,12 +1,12 @@
 # Use Maven to build the application
-FROM maven:3.8.5-openjdk-22 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Use an official OpenJDK runtime as a parent image
-FROM openjdk:22-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Set the working directory in the container
 WORKDIR /app
