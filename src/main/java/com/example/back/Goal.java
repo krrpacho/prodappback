@@ -67,4 +67,3 @@ public class Goal {
         this.createdAt = createdAt;
     }
 }
-

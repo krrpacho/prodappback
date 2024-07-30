@@ -70,5 +70,4 @@ public class Time {
         this.goalName = goalName;
         this.color = color;
     }
-}//old
-
+}

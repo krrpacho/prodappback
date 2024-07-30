@@ -11,7 +11,5 @@ public interface TimeRepository extends JpaRepository<Time, Long> {
     List<Time> findByDate(LocalDate date);
     List<Time> findByGoalName(String goalName);
 
-     // New method to get times between two dates
      List<Time> findByDateBetween(LocalDate startDate, LocalDate endDate);
-}//old
-
+}

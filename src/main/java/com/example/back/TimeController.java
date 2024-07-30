@@ -47,6 +47,3 @@ public class TimeController {
     return timeService.getYearlySummary(yearsAgo);
     }
 }
-
-
-
