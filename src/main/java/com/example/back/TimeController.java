@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/times")
-@CrossOrigin(origins = "https://krrpacho.github.io/produo/")
+@CrossOrigin(origins = "https://krrpacho.github.io")
 public class TimeController {
 
     @Autowired

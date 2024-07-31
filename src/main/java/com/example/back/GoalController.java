@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/goals")
-@CrossOrigin(origins = "https://krrpacho.github.io/produo/")
+@CrossOrigin(origins = "https://krrpacho.github.io")
 public class GoalController {
 
     @Autowired
