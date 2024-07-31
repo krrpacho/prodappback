@@ -16,6 +16,7 @@ public class Time {
     private LocalDate date;
     private String goalName;
     private String color;
+    private String userId; // Add this field
 
     // Getters and Setters
 
@@ -59,15 +60,24 @@ public class Time {
         this.color = color;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     // Constructors
 
     public Time() {
     }
 
-    public Time(String elapsedTime, LocalDate date, String goalName, String color) {
+    public Time(String elapsedTime, LocalDate date, String goalName, String color, String userId) {
         this.elapsedTime = elapsedTime;
         this.date = date;
         this.goalName = goalName;
         this.color = color;
+        this.userId = userId;
     }
 }

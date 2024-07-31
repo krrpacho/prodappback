@@ -20,19 +20,19 @@ public class TimeService {
         return timeRepository.save(time);
     }
 
-    public List<Time> getAllTimes() {
-        return timeRepository.findAll();
+    public List<Time> getAllTimes(String userId) {
+        return timeRepository.findByUserId(userId);
     }
 
     public void deleteTime(Long id) {
         timeRepository.deleteById(id);
     }
 
-    public Map<String, Long> getWeeklySummary(int weeksAgo) {
+    public Map<String, Long> getWeeklySummary(int weeksAgo, String userId) {
         LocalDate endDate = LocalDate.now().minusWeeks(weeksAgo);
         LocalDate startDate = endDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         endDate = endDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-        List<Time> times = timeRepository.findByDateBetween(startDate, endDate);
+        List<Time> times = timeRepository.findByDateBetweenAndUserId(startDate, endDate, userId);
 
         Map<String, Long> summary = new HashMap<>();
         for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
@@ -48,10 +48,10 @@ public class TimeService {
         return summary;
     }
 
-    public Map<String, Long> getMonthlySummary(int monthsAgo) {
+    public Map<String, Long> getMonthlySummary(int monthsAgo, String userId) {
         LocalDate startDate = LocalDate.now().minusMonths(monthsAgo).withDayOfMonth(1);
         LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
-        List<Time> times = timeRepository.findByDateBetween(startDate, endDate);
+        List<Time> times = timeRepository.findByDateBetweenAndUserId(startDate, endDate, userId);
 
         Map<String, Long> summary = new HashMap<>();
         summary.put("1-8", 0L);
@@ -83,10 +83,10 @@ public class TimeService {
         return minutes * 60 + seconds;
     }
 
-    public Map<String, Long> getYearlySummary(int yearsAgo) {
+    public Map<String, Long> getYearlySummary(int yearsAgo, String userId) {
         LocalDate startDate = LocalDate.now().minusYears(yearsAgo).withDayOfYear(1);
         LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfYear());
-        List<Time> times = timeRepository.findByDateBetween(startDate, endDate);
+        List<Time> times = timeRepository.findByDateBetweenAndUserId(startDate, endDate, userId);
     
         Map<String, Long> summary = new HashMap<>();
         for (int i = 1; i <= 12; i++) {

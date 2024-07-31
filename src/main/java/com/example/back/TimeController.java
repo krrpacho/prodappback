@@ -17,33 +17,38 @@ public class TimeController {
     private TimeService timeService;
 
     @PostMapping
-    public Time saveTime(@RequestBody Time time) {
-        return timeService.saveTime(time);
+    public ResponseEntity<Time> createTime(@RequestBody Time time) {
+        Time savedTime = timeService.saveTime(time);
+        return ResponseEntity.ok(savedTime);
     }
 
     @GetMapping
-    public List<Time> getAllTimes() {
-        return timeService.getAllTimes();
+    public ResponseEntity<List<Time>> getTimes(@RequestParam String userId) {
+        List<Time> times = timeService.getAllTimes(userId);
+        return ResponseEntity.ok(times);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTime(@PathVariable Long id) {
         timeService.deleteTime(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/weekly-summary")
-    public Map<String, Long> getWeeklySummary(@RequestParam(defaultValue = "0") int weeksAgo) {
-        return timeService.getWeeklySummary(weeksAgo);
+    public ResponseEntity<Map<String, Long>> getWeeklySummary(@RequestParam int weeksAgo, @RequestParam String userId) {
+        Map<String, Long> summary = timeService.getWeeklySummary(weeksAgo, userId);
+        return ResponseEntity.ok(summary);
     }
 
     @GetMapping("/monthly-summary")
-    public Map<String, Long> getMonthlySummary(@RequestParam(defaultValue = "0") int monthsAgo) {
-        return timeService.getMonthlySummary(monthsAgo);
+    public ResponseEntity<Map<String, Long>> getMonthlySummary(@RequestParam int monthsAgo, @RequestParam String userId) {
+        Map<String, Long> summary = timeService.getMonthlySummary(monthsAgo, userId);
+        return ResponseEntity.ok(summary);
     }
 
     @GetMapping("/yearly-summary")
-    public Map<String, Long> getYearlySummary(@RequestParam(defaultValue = "0") int yearsAgo) {
-    return timeService.getYearlySummary(yearsAgo);
+    public ResponseEntity<Map<String, Long>> getYearlySummary(@RequestParam int yearsAgo, @RequestParam String userId) {
+        Map<String, Long> summary = timeService.getYearlySummary(yearsAgo, userId);
+        return ResponseEntity.ok(summary);
     }
 }
