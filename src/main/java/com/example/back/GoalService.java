@@ -14,8 +14,8 @@ public class GoalService {
         return goalRepository.save(goal);
     }
 
-    public List<Goal> getAllGoals(String userId) {
-        return goalRepository.findByUserId(userId);
+    public List<Goal> getAllGoals() {
+        return goalRepository.findAll();
     }
 
     public void deleteGoal(Long id) {
@@ -30,4 +30,5 @@ public class GoalService {
             return goalRepository.save(goal);
         }).orElse(null);
     }
+    
 }

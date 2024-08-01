@@ -12,9 +12,4 @@ public interface TimeRepository extends JpaRepository<Time, Long> {
     List<Time> findByGoalName(String goalName);
 
     List<Time> findByDateBetween(LocalDate startDate, LocalDate endDate);
-
-     //new
-    List<Time> findByGoalNameAndUserId(String goalName, String userId);
-    List<Time> findByUserId(String userId); 
-    List<Time> findByDateBetweenAndUserId(LocalDate startDate, LocalDate endDate, String userId);
 }

@@ -16,26 +16,28 @@ public class GoalController {
     private GoalService goalService;
 
     @PostMapping
-    public ResponseEntity<Goal> createGoal(@RequestBody Goal goal) {
-        Goal savedGoal = goalService.saveGoal(goal);
-        return ResponseEntity.ok(savedGoal);
+    public Goal saveGoal(@RequestBody Goal goal) {
+        return goalService.saveGoal(goal);
     }
 
     @GetMapping
-    public ResponseEntity<List<Goal>> getGoals(@RequestParam String userId) {
-        List<Goal> goals = goalService.getAllGoals(userId);
-        return ResponseEntity.ok(goals);
+    public List<Goal> getAllGoals() {
+        return goalService.getAllGoals();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGoal(@PathVariable Long id) {
         goalService.deleteGoal(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Goal> updateGoal(@PathVariable Long id, @RequestBody Goal goal) {
-        Goal updatedGoal = goalService.updateGoal(id, goal);
-        return updatedGoal != null ? ResponseEntity.ok(updatedGoal) : ResponseEntity.notFound().build();
+    public ResponseEntity<Goal> updateGoal(@PathVariable Long id, @RequestBody Goal updatedGoal) {
+    Goal goal = goalService.updateGoal(id, updatedGoal);
+    if (goal != null) {
+        return ResponseEntity.ok(goal);
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
     }
 }
