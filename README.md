@@ -1,4 +1,4 @@
-Produo Backend
+# Produo Backend
 This repository contains the backend code for the Produo productivity app, a platform designed to help users stay focused, motivated, and productive throughout the day. 
 The backend is built using Spring Boot with Java and provides the necessary APIs and services to support the frontend of the application.
 
