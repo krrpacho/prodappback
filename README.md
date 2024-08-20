@@ -11,9 +11,13 @@ Deployment: Containerized using Docker and deployed on Render for cloud hosting.
 
 ### Technologies Used
 Spring Boot: Backend framework
+
 Java: Programming language
+
 PostgreSQL: Database management
+
 Docker: Containerization
+
 Render: Cloud hosting
 
 Contact
