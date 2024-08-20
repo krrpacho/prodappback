@@ -20,5 +20,5 @@ Docker: Containerization
 
 Render: Cloud hosting
 
-Contact
+### Contact
 For any questions or support, please reach out to krrpacho@gmail.com
